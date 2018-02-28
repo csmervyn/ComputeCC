@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>ComputeCC</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <!-- B:配置中文编码问题的过滤器 -->
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+		   	<param-name>encoding</param-name>
+		   	<param-value>utf-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- E:配置中文编码问题的过滤器 -->
+
+	<!-- B:配置Spring配置文件的名称和位置 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:applicationContext.xml
+		</param-value>
+	</context-param>
+	<!-- E:配置Spring配置文件的名称和位置 -->
+	
+	<!-- B:启动IOC容器的ServletContextListener -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<!-- E:启动IOC容器的ServletContextListener -->
+	
+	<!-- 配置DispacherServlet,它默认自动加载/WEB-INF/springmvc01-servlet.xml(即<servlet-Name>-servlet.xml)
+    	的Spring配置文件,启动web层的Spring容器。 -->
+    <servlet>
+         <servlet-name>springmvc</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+	      <param-name>contextConfigLocation</param-name>
+	      <param-value>classpath:springmvc-servlet.xml</param-value>    
+	    </init-param>
+        <load-on-startup>1</load-on-startup><!-- 表示启动容器时初始化该Servlet -->
+    </servlet>
+    
+    <!-- 通过<servlet-mapping指定DispacherServlet处理所有URL以.html为后缀的HTTP请求，
+    	即所有带.html后缀的HTTP请求都会被DispacherServlet截获并处理-->
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+       <!--  <url-pattern>/*.do</url-pattern> -->
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+</web-app>
