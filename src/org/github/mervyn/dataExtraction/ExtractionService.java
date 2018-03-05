@@ -11,20 +11,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.xssf.streaming.SXSSFCell;
-import org.apache.poi.xssf.streaming.SXSSFRow;
-import org.apache.poi.xssf.streaming.SXSSFSheet;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.github.mervyn.utils.Group;
 import org.github.mervyn.utils.Line;
 import org.github.mervyn.utils.ParseExcel;
@@ -78,9 +68,9 @@ public class ExtractionService {
 	public void exportTable2(Table table, String path) throws IOException{
 		// 第一步，创建一个webbook，对应一个Excel文件  
         //HSSFWorkbook workbook = new HSSFWorkbook();
-		SXSSFWorkbook workbook = new SXSSFWorkbook();
+		HSSFWorkbook workbook = new HSSFWorkbook();
      // 第二步，在webbook中添加一个sheet,对应Excel文件中的sheet  
-		SXSSFSheet sheet = workbook.createSheet("抽取出的七点量表数据");
+		HSSFSheet sheet = workbook.createSheet("抽取出的七点量表数据");
      // 设置表格默认列宽度为15个字节  
         sheet.setDefaultColumnWidth((short)10);  
         // 生成一个样式  
@@ -117,9 +107,9 @@ public class ExtractionService {
         style2.setFont(font2);
         
         // 产生表格标题行  
-		SXSSFRow row = sheet.createRow(0);
+		HSSFRow row = sheet.createRow(0);
         int groupNum = table.getLineList().get(0).getGroupList().size();
-		SXSSFCell cell = null;
+		HSSFCell cell = null;
         int cellNum = 0;
         for (short i = 0; i < groupNum; i++)  
         {  
@@ -181,14 +171,14 @@ public class ExtractionService {
 					 line = "Z";
 				 }
                  int column = j + 1;
-                 XSSFRichTextString text = new XSSFRichTextString("" + line + column); 
+				HSSFRichTextString text = new HSSFRichTextString("" + line + column);
                  cell.setCellValue(text);
                  cellNum++;
                  
         	}
         	//cell = row.createCell(cellNum);  
             //cell.setCellStyle(style);
-           // XSSFRichTextString text = new XSSFRichTextString("第"+i+"平均值"); 
+           // HSSFRichTextString text = new HSSFRichTextString("第"+i+"平均值"); 
             //cell.setCellValue(text);
             //cellNum++;
         }
@@ -201,14 +191,14 @@ public class ExtractionService {
         	for(int group = 0; group < table.getLineList().get(line).getGroupList().size();group++){
         		for(int column = 0; column < table.getLineList().get(line).getGroupList().get(group).getColumnList().size(); column++){
         			cell = row.createCell((short)(dataCellNum));
-        			XSSFRichTextString text = new XSSFRichTextString(table.getLineList().get(line).getGroupList().get(group).getColumnList().get(column).toString()); 
+					HSSFRichTextString text = new HSSFRichTextString(table.getLineList().get(line).getGroupList().get(group).getColumnList().get(column).toString()); 
         			cell.setCellValue(text);  
                     cell.setCellStyle(style2);
         			dataCellNum++;
         		}
         		//cell = row.createCell(dataCellNum);  
                 //cell.setCellStyle(style2);
-               // XSSFRichTextString text = new XSSFRichTextString("" + table.getLineList().get(line).getGroupList().get(group).getAverage()); 
+               // HSSFRichTextString text = new HSSFRichTextString("" + table.getLineList().get(line).getGroupList().get(group).getAverage()); 
                // cell.setCellValue(text);
                 //dataCellNum++;
         	}
@@ -229,9 +219,9 @@ public class ExtractionService {
 		// 第一步，创建一个webbook，对应一个Excel文件  
         //HSSFWorkbook workbook = new HSSFWorkbook();
 
-		SXSSFWorkbook workbook = new SXSSFWorkbook();
+		HSSFWorkbook workbook = new HSSFWorkbook();
 		// 第二步，在webbook中添加一个sheet,对应Excel文件中的sheet
-		SXSSFSheet sheet = workbook.createSheet("抽取出的五点量表数据");
+		HSSFSheet sheet = workbook.createSheet("抽取出的五点量表数据");
      // 设置表格默认列宽度为15个字节  
         sheet.setDefaultColumnWidth((short)10);  
         // 生成一个样式  
@@ -268,9 +258,9 @@ public class ExtractionService {
         style2.setFont(font2);
         
         // 产生表格标题行  
-        SXSSFRow row = sheet.createRow(0);
+		HSSFRow row = sheet.createRow(0);
         int groupNum = table.getLineList().get(0).getGroupList().size();
-        SXSSFCell cell = null;
+		HSSFCell cell = null;
         int cellNum = 0;
         for (short i = 0; i < groupNum; i++)  
         {  
@@ -332,14 +322,14 @@ public class ExtractionService {
 					 line = "Z";
 				 }
                  int column = j + 1;
-                 XSSFRichTextString text = new XSSFRichTextString("" + line + column); 
+				HSSFRichTextString text = new HSSFRichTextString("" + line + column); 
                  cell.setCellValue(text);
                  cellNum++;
                  
         	}
         	//cell = row.createCell(cellNum);  
             //cell.setCellStyle(style);
-           // XSSFRichTextString text = new XSSFRichTextString("第"+i+"平均值"); 
+           // HSSFRichTextString text = new HSSFRichTextString("第"+i+"平均值"); 
             //cell.setCellValue(text);
             //cellNum++;
         }
@@ -352,14 +342,14 @@ public class ExtractionService {
         	for(int group = 0; group < table.getLineList().get(line).getGroupList().size();group++){
         		for(int column = 0; column < table.getLineList().get(line).getGroupList().get(group).getColumnList().size(); column++){
         			cell = row.createCell((short)(dataCellNum));
-        			XSSFRichTextString text = new XSSFRichTextString(table.getLineList().get(line).getGroupList().get(group).getColumnList().get(column).toString()); 
+					HSSFRichTextString text = new HSSFRichTextString(table.getLineList().get(line).getGroupList().get(group).getColumnList().get(column).toString());
         			cell.setCellValue(text);  
                     cell.setCellStyle(style2);
         			dataCellNum++;
         		}
         		//cell = row.createCell(dataCellNum);  
                 //cell.setCellStyle(style2);
-               // XSSFRichTextString text = new XSSFRichTextString("" + table.getLineList().get(line).getGroupList().get(group).getAverage()); 
+               // HSSFRichTextString text = new HSSFRichTextString("" + table.getLineList().get(line).getGroupList().get(group).getAverage()); 
                // cell.setCellValue(text);
                 //dataCellNum++;
         	}

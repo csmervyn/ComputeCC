@@ -153,7 +153,8 @@ public class CSLService {
 						i--;
 					}
 				}else{
-					if(temp >= -2.3 && temp <=2.3){
+					double tempSd = (temp - nd.getMean())/nd.getSd();
+					if(tempSd >= -2.3 && tempSd <=2.3){
 						result.getColumnData().add(temp);
 					}else{
 						i--;
